@@ -1,0 +1,19 @@
+.text {
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: normal;
+  color: #FFF;
+  margin: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .text {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .text {
+    font-size: 11px;
+  }
+}
