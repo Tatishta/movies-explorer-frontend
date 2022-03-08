@@ -1,7 +1,7 @@
 .promo {
   background: #272727;
   border-radius: 10px;
-  width: 95%;
+  width: 94%;
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -32,7 +32,7 @@
   .promo {
     width: 91%;
   }
-  
+
   .promo__title {
     padding: 220px 0 210px;
     max-width: 680px;

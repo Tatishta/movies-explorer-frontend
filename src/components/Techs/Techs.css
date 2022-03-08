@@ -69,6 +69,7 @@
 @media screen and (max-width: 425px) {
   .techs {
     padding: 19px 18px 70px 18px;
+    background: #202020;
   }
 
   .techs__title {

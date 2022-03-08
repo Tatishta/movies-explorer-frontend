@@ -3,7 +3,7 @@ import './AboutMe.css';
 import Title from '../Title/Title';
 import TextBlock from '../TextBlock/TextBlock';
 import TextBig from '../TextBig/TextBig';
-import Avatar from '../../images/avatar.jpg';
+import Avatar from '../../images/ava.jpg';
 
 function AboutMe() {
 
@@ -13,17 +13,16 @@ function AboutMe() {
         <div className="about-me__block">
           <div className="about-me__info">
             <TextBig className="about-me__name">
-              Виталий
+              Таня
             </TextBig>
             <h4 className="about-me__subtitle">
-              Фронтенд-разработчик, 30 лет
+              Фронтенд-разработчик, 28 лет
             </h4>
             <TextBlock>
-              Я родился и живу в Саратове, закончил факультет экономики СГУ.
-              У меня есть жена и дочь. Я люблю слушать музыку, а ещё увлекаюсь
-              бегом. Недавно начал кодить. С&nbsp;2015 года работал в компании
-              «СКБ Контур». После того, как прошёл курс по веб-разработке,
-              начал заниматься фриланс-заказами и ушёл с постоянной работы.
+              Родилась в Иркутске, по специальности экономист и переводчик
+              (английский и китайский). С 2021 года учусь на курсе по веб-разработке
+              Яндекс Практикума. Перед вами дипломная работа, над которой я
+              в данный момент тружусь:)
             </TextBlock>
             <ul className="about-me__social">
               <li>

@@ -14,7 +14,7 @@ function Portfolio() {
               className="portfolio__link"
               target="_blank"
               rel="noreferrer"
-              href="https://praktikum.yandex.ru">
+              href="https://github.com/Tatishta/how-to-learn">
               <p className="portfolio__text">
                 Статичный сайт
               </p>
@@ -26,7 +26,7 @@ function Portfolio() {
                 className="portfolio__link"
                 target="_blank"
                 rel="noreferrer"
-                href="https://praktikum.yandex.ru">
+                href="https://tatishta.github.io/russian-travel/">
               <p className="portfolio__text">
                 Адаптивный сайт
               </p>
@@ -38,7 +38,7 @@ function Portfolio() {
                 className="portfolio__link"
                 target="_blank"
                 rel="noreferrer"
-                href="https://praktikum.yandex.ru">
+                href="https://difang.nomoredomains.work">
               <p className="portfolio__text">
                 Одностраничное приложение
               </p>

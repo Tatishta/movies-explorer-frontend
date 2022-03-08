@@ -32,6 +32,11 @@
   justify-content: space-between;
   text-decoration: none;
   align-items: center;
+  transition: opacity .3s;
+}
+
+.portfolio__link:hover {
+  opacity: .7;
 }
 
 .portfolio__icon {

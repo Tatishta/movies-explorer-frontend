@@ -1,9 +1,9 @@
 import React from 'react';
-import './Movies.css';
+import './SavedMovies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function Movies() {
+function SavedMovies() {
 
   return (
     <section className="movies">
@@ -13,4 +13,4 @@ function Movies() {
   );
 }
 
-export default Movies;
+export default SavedMovies;

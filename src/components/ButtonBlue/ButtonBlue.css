@@ -1,0 +1,15 @@
+.button-blue {
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 1.2;
+  color: #4285F4;
+  border: none;
+  background: transparent;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 425px) {
+  .button-blue {
+    font-size: 12px;
+  }
+}

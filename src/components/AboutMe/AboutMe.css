@@ -13,6 +13,9 @@
   width: 270px;
   height: 327px;
   border-radius: 10px;
+  align-self: flex-end;
+  object-fit: cover;
+  object-position: top;
 }
 
 .about-me__info {
@@ -43,6 +46,11 @@
   font-size: 14px;
   line-height: 1.2;
   color: #FFFFFF;
+  transition: opacity .3s;
+}
+
+.about-me__link:hover {
+  opacity: .7;
 }
 
 @media screen and (max-width: 768px) {
@@ -67,7 +75,7 @@
   .about-me__info {
     max-width: 355px;
   }
-  
+
   .about-me__social {
     gap: 21px;
     padding: 86px 0 58px 0;
