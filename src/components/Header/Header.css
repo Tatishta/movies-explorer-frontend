@@ -75,6 +75,32 @@
   background: url('../../images/account.svg') no-repeat center #313131;
 }
 
+.header__sidebar {
+  width: 40px;
+  height: 43px;
+  border: none;
+  cursor: pointer;
+  background: url(../../images/sidebar.svg) center no-repeat;
+  transition: opacity .3s;
+}
+
+.header__sidebar:hover {
+  opacity: .7;
+}
+
+@media screen and (min-width: 769px) {
+  .header__sidebar {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 769px) {
+  .header__links {
+    display: none;
+  }
+}
+
+
 @media screen and (max-width: 425px) {
   .header {
     padding: 18px 14px 32px 14px;

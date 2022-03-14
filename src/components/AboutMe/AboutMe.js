@@ -8,7 +8,7 @@ import Avatar from '../../images/ava.jpg';
 function AboutMe() {
 
   return (
-    <article className="about-me">
+    <article className="about-me" id="about-me">
       <Title name="Студент" />
         <div className="about-me__block">
           <div className="about-me__info">

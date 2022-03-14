@@ -3,7 +3,7 @@ import './Header.css';
 import { NavLink } from 'react-router-dom';
 import Logo from '../Logo/Logo';
 
-function Header() {
+function Header(props) {
 
   return (
     <header className="header">
@@ -13,7 +13,7 @@ function Header() {
           <NavLink className="header__button" to="/signup">Регистрация</NavLink>
           <NavLink className="header__button header__button_type_green" to="/signin">Войти</NavLink>
         </nav>) : (
-        window.location.pathname === "/movies" || "/profile" ? (
+        <>
         <nav className="header__links">
           <NavLink
             className={({ isActive }) => isActive ? "header__link header__link_active" : "header__link"}
@@ -29,7 +29,12 @@ function Header() {
             <span>Аккаунт</span>
             <div className="header__icon" />
           </NavLink>
-        </nav>) : (<></>))}
+        </nav>
+        <button
+          className="header__sidebar"
+          type="button"
+          onClick={props.onSidebarOpen} />
+          </>)}
     </header>
 );
 }

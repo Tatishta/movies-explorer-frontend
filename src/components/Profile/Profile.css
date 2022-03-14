@@ -4,13 +4,13 @@
   max-width: 410px;
   margin: auto;
   align-items: center;
+  height: 100vh;
 }
 
 .profile__form {
   display: flex;
   flex-direction: column;
   width: 100%;
-
 }
 
 .profile__title {
@@ -58,6 +58,12 @@
   font-size: 13px;
   line-height: 1.2;
   color: #FFFFFF;
+  cursor: pointer;
+  transition: opacity .3s;
+}
+
+.profile__edit:hover {
+  opacity: .7;
 }
 
 .profile__exit {
@@ -68,4 +74,40 @@
   font-size: 13px;
   line-height: 1.2;
   color: #EE3465;
+  cursor: pointer;
+  transition: opacity .3s;
+}
+
+.profile__exit:hover {
+  opacity: .7;
+}
+
+@media screen and (max-width: 768px) {
+  .profile__title {
+    padding: 212px 0 79px 0;
+  }
+
+  .profile__edit {
+    padding: 197px 0 0 0;
+  }
+}
+
+
+@media screen and (max-width: 425px) {
+  .profile__title {
+    padding: 52px 0 63px 0;
+  }
+
+  .profile {
+    max-width: 260px;
+  }
+
+  .profile__edit {
+    padding: 364px 0 0 0;
+    font-size: 12px;
+  }
+
+  .profile__exit {
+    font-size: 13px;
+  }
 }

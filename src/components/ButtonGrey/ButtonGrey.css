@@ -5,11 +5,14 @@
   border: none;
   background: #303030;
   border-radius: 10px;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 36px;
   width: 100%;
   cursor: pointer;
   transition: opacity .3s;
+  text-decoration: none;
 }
 
 .button-grey:hover {

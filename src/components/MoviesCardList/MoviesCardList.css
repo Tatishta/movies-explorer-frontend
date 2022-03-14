@@ -1,7 +1,8 @@
 .movies-cards {
   display: flex;
   flex-direction: column;
-  padding-bottom: 76px;
+  padding: 0 70px 76px 70px;
+  box-sizing: border-box;
 }
 
 .movies-cards__list {
@@ -11,4 +12,28 @@
   column-gap: 30px;
   row-gap: 56px;
   grid-template-columns: repeat(auto-fill, 360px);
+  justify-content: center;
+}
+
+@media screen and (max-width: 900px) {
+  .movies-cards {
+    padding: 0 30px 76px 30px;
+  }
+
+  .movies-cards__list {
+    grid-template-columns: repeat(auto-fill, 339px);
+    row-gap: 45px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .movies-cards {
+    padding: 0 10px 76px 10px;
+  }
+
+  .movies-cards__list {
+    grid-template-columns: 300px;
+    padding: 50px 0 76px 0;
+    row-gap: 35px;
+  }
 }

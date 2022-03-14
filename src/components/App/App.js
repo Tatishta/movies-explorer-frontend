@@ -1,8 +1,6 @@
 import './App.css';
 import React from 'react';
 import { Routes, Route } from "react-router-dom";
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import NotFound from '../NotFound/NotFound';
@@ -15,7 +13,6 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/movies" element={<Movies />} />
@@ -25,7 +22,6 @@ function App() {
         <Route path="/signup" element={<Register />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-      <Footer />
     </div>
   );
 }

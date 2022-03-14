@@ -1,0 +1,95 @@
+.sidebar {
+  background-color: #202020;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 520px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 100;
+  padding: 27px 10px 88px 10px;
+  box-sizing: border-box;
+  pointer-events: none;
+  transform: translate(0, -100%);
+  transition: transform .5s ease-out;
+}
+
+.sidebar_active {
+  transform: translate(0, 0);
+  pointer-events: all;
+}
+
+.sidebar__close {
+  position: relative;
+  left: 461px;
+  background: url(../../images/closeSidebar.svg) center no-repeat;
+  width: 22px;
+  height: 22px;
+  border: none;
+  cursor: pointer;
+  transition: opacity .3s;
+}
+
+.sidebar__close:hover {
+  opacity: .8;
+}
+
+.sidebar__links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 84px;
+}
+
+.sidebar__link {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.2;
+  color: #FFFFFF;
+  text-decoration: none;
+  margin: 24px 0 0 0;
+  padding-bottom: 4px;
+  transition: opacity .3s;
+}
+
+.sidebar__link:hover {
+  opacity: .7;
+}
+
+.sidebar__link_active {
+  border-bottom: #FFFFFF solid 2px;
+}
+
+.sidebar__link_type_account {
+  justify-self: end;
+  align-self: center;
+  display: flex;
+  font-size: 13px;
+  align-items: center;
+}
+
+.sidebar__icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: url('../../images/account.svg') no-repeat center #313131;
+  margin-left: 7px;
+}
+
+@media screen and (max-width: 425px) {
+  .sidebar {
+    width: 320px;
+    height: 100vh;
+    padding: 18px 10px 45px 10px;
+  }
+
+  .sidebar__close {
+    left: 270px;
+  }
+
+  .sidebar__link {
+    margin: 19px 0 0 0;
+  }
+}

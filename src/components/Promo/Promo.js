@@ -2,6 +2,8 @@ import React from 'react';
 import './Promo.css';
 import ButtonGrey from '../ButtonGrey/ButtonGrey';
 import TextBig from '../TextBig/TextBig';
+import {HashLink} from 'react-router-hash-link';
+
 
 
 function Promo() {
@@ -12,9 +14,15 @@ function Promo() {
         Учебный проект студента факультета Веб-разработки.
       </TextBig>
       <nav className="promo__nav">
-        <ButtonGrey name="О проекте" />
-        <ButtonGrey name="Технологии" />
-        <ButtonGrey name="Студент" />
+        <HashLink to="#about">
+          <ButtonGrey name="О проекте" to="#about"/>
+        </HashLink>
+        <HashLink to="#techs">
+          <ButtonGrey name="Технологии" to="#techs"/>
+        </HashLink>
+        <HashLink to="#about-me">
+          <ButtonGrey name="Студент" />
+        </HashLink>
       </nav>
     </article>
   );

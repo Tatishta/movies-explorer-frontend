@@ -6,7 +6,7 @@ import TextBlock from '../TextBlock/TextBlock';
 function AboutProject() {
 
   return (
-    <article className="about">
+    <article className="about" id="about">
       <Title name="О проекте" />
       <div className="about__block">
         <div className="about__element">

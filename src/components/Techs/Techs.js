@@ -7,7 +7,7 @@ import TextBig from '../TextBig/TextBig';
 function Techs() {
 
   return (
-    <article className="techs">
+    <article className="techs" id="techs">
       <Title name="Технологии" />
       <div className="techs__block">
         <TextBig className="techs__title">

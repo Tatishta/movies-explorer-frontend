@@ -10,12 +10,13 @@ function Auth(props) {
       <Logo />
       <h4 className="auth__title">{props.title}</h4>
       <form
-        className="auth__form">
+        className="auth__form"
+        onSubmit={props.onSubmit}>
         {props.children}
-      </form>
-      <button
+        <button
             className="auth__submit"
             type="submit">{props.submit}</button>
+      </form>
       <div className="auth__comment">
         <p className="auth__text">{props.comment}</p>
         <ButtonBlue

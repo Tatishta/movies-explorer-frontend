@@ -5,6 +5,7 @@
   padding: 246px 0 58px 0;
   box-sizing: border-box;
   justify-content: space-between;
+  height: 100vh;
 }
 
 .not-found__block {
