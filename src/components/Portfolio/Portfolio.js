@@ -14,7 +14,7 @@ function Portfolio() {
               className="portfolio__link"
               target="_blank"
               rel="noreferrer"
-              href="https://github.com/Tatishta/how-to-learn">
+              href="https://tatishta.github.io/how-to-learn/">
               <p className="portfolio__text">
                 Статичный сайт
               </p>

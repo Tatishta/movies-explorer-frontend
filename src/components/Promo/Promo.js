@@ -14,13 +14,13 @@ function Promo() {
         Учебный проект студента факультета Веб-разработки.
       </TextBig>
       <nav className="promo__nav">
-        <HashLink to="#about">
+        <HashLink className="promo__navlink" to="#about">
           <ButtonGrey name="О проекте" to="#about"/>
         </HashLink>
-        <HashLink to="#techs">
+        <HashLink className="promo__navlink" to="#techs">
           <ButtonGrey name="Технологии" to="#techs"/>
         </HashLink>
-        <HashLink to="#about-me">
+        <HashLink className="promo__navlink" to="#about-me">
           <ButtonGrey name="Студент" />
         </HashLink>
       </nav>
