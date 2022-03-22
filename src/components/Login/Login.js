@@ -3,14 +3,43 @@ import { useNavigate } from "react-router-dom";
 import FormInput from '../FormInput/FormInput';
 import Auth from '../Auth/Auth';
 
-function Login() {
+function Login({handleLogin}) {
+
+  const [state, setState] = React.useState({
+    email: '',
+    password: ''
+  })
 
   const navigate = useNavigate();
 
+  const handleChange = (e) => {
+    const {name, value} = e.target;
+    setState((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const reset = () => {
+    setState({
+      email:'',
+      password:'',
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("/movies")
-  }
+    if (!state.email || !state.password) {
+      return;
+    }
+
+    handleLogin(state.email, state.password)
+      .then(reset)
+      .then(() => navigate("/movies"))
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   return (
     <Auth
@@ -24,11 +53,13 @@ function Login() {
         label="E-mail"
         placeholder="pochta@yandex.ru"
         type="email"
-        inputName="email" />
+        inputName="email"
+        onChange={handleChange} />
       <FormInput
         label="Пароль"
         type="text"
-        inputName="password" />
+        inputName="password"
+        onChange={handleChange} />
     </Auth>
   );
 }

@@ -1,15 +1,28 @@
 import React from 'react';
-import { useNavigate } from "react-router-dom";
 import FormInput from '../FormInput/FormInput';
 import Auth from '../Auth/Auth';
 
-function Register() {
-  const navigate = useNavigate();
+function Register({handleRegister}) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("/signin")
+    const {name, email, password} = state;
+    handleRegister(name, email, password)
   }
+
+  const [state, setState] = React.useState({
+    name: '',
+    email: '',
+    password: ''
+  })
+
+  const handleChange = (e) => {
+    const {name, value} = e.target;
+    setState((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   return (
     <Auth
@@ -23,16 +36,19 @@ function Register() {
         label="Имя"
         placeholder="Виталий"
         type="text"
-        inputName="name" />
+        inputName="name"
+        onChange={handleChange} />
       <FormInput
         label="E-mail"
         placeholder="pochta@yandex.ru"
         type="email"
-        inputName="email" />
+        inputName="email"
+        onChange={handleChange} />
       <FormInput
         label="Пароль"
         type="text"
-        inputName="password" />
+        inputName="password"
+        onChange={handleChange} />
     </Auth>
   );
 }

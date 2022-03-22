@@ -11,6 +11,7 @@ function FormInput(props) {
         placeholder={props.placeholder}
         type={props.type}
         name={props.inputName}
+        onChange={props.onChange}
         required
       />
       <span className="form-input__error"></span>
