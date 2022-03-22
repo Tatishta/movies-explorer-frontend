@@ -1,0 +1,140 @@
+.card {
+  max-width: 360px;
+  display: grid;
+  grid-template-columns: 264px auto;
+  grid-template-rows: auto auto;
+  row-gap: 15px;
+  column-gap: 30px;
+}
+
+.card__overlay {
+  display: grid;
+  grid-column: 1/span 2;
+  overflow: hidden;
+}
+
+.card__overlay:hover .card__button {
+  transform: scale(1);
+  transition: all .4s;
+}
+
+.card__image {
+  width: 360px;
+  height: 201px;
+  object-fit: contain;
+  border-radius: 6px;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.card__button {
+  border: none;
+  justify-self: end;
+  margin: 14px 14px 0 0;
+  grid-column: 1;
+  grid-row: 1;
+  z-index: 1;
+}
+
+.card__save {
+  width: 72px;
+  height: 21px;
+  background: #313131;
+  border-radius: 30px;
+  font-weight: normal;
+  font-size: 10px;
+  color: #FFFFFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: scale(0);
+  cursor: pointer;
+  transition: opacity .3s;
+}
+
+.card__save:hover {
+  opacity: .8;
+}
+
+.card__saved {
+  width: 21px;
+  height: 21px;
+  background: url(../../images/saved.svg) center no-repeat;
+}
+
+.card__remove {
+  width: 21px;
+  height: 21px;
+  border-radius: 30px;
+  background: #313131 url(../../images/remove.svg) center no-repeat;
+  transition: opacity .3s;
+  cursor: pointer;
+  transform: scale(0);
+}
+
+.card__remove:hover {
+  opacity: .8;
+}
+
+
+.card__name {
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.2;
+  color: #FFFFFF;
+  margin: 0;
+  padding-left: 14px;
+}
+
+.card__time {
+  font-weight: normal;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8B8B8B;
+  background: #2F2F2F;
+  border-radius: 3px;
+  width: 52px;
+  height: 18px;
+}
+
+@media screen and (max-width: 768px) {
+  .card {
+    max-width: 339px;
+    grid-template-columns: 250px auto;
+    row-gap: 25px;
+    column-gap: 37px;
+  }
+
+  .card__image {
+    width: 339px;
+    height: 190px;
+  }
+
+  .card__name {
+    padding-left: 0;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .card {
+    max-width: 300px;
+    grid-template-columns: 240px auto;
+    row-gap: 17px;
+    column-gap: 8px;
+  }
+
+  .card__image {
+    width: 300px;
+    height: 168px;
+  }
+
+  .card__name {
+    font-size: 12px;
+  }
+
+  .card__button {
+    margin: 10px 10px 0 0;
+  }
+}

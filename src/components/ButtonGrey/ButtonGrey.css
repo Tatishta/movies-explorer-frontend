@@ -1,0 +1,28 @@
+.button-grey {
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: 500;
+  border: none;
+  background: #303030;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 36px;
+  width: 100%;
+  cursor: pointer;
+  transition: opacity .3s;
+  text-decoration: none;
+}
+
+.button-grey:hover {
+  opacity: .8;
+}
+
+@media screen and (max-width: 425px) {
+  .button-grey {
+    font-size: 10px;
+    height: 26px;
+    border-radius: 6px;
+  }
+}
