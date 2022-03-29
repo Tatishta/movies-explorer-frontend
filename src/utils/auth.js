@@ -18,7 +18,8 @@ export const register = (name, email, password) => {
         name: name,
         email: email,
         password: password
-      })
+      }),
+      credentials: 'include',
     })
     .then(getResult)
 }

@@ -1,6 +1,7 @@
 import './App.css';
 import React from 'react';
 import { Routes, Route, useNavigate } from "react-router-dom";
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import NotFound from '../NotFound/NotFound';
@@ -15,9 +16,11 @@ function App() {
   const navigate = useNavigate();
 
 
-  const [loggedIn, setLoggedIn] = React.useState(true);
+  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [currentUser, setCurrentUser] = React.useState({})
 
-  function handleRegister (name, email, password) {
+
+  const handleRegister = (name, email, password) => {
     auth.register(name, email, password)
       .then(() => {
         navigate("/movies");})
@@ -36,20 +39,41 @@ function App() {
       })
   };
 
+  const handleSignOut = () => {
+    auth.signOut()
+    .then(() => {
+      setLoggedIn(false);
+      navigate("/");
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  };
+
   return (
     <div className="App">
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/" element={
-          <ProtectedRoute redirectTo="/signin" loggedIn={loggedIn}>
-            <Route path="/movies" element={<Movies />} />
-          </ProtectedRoute>} />
-          <Route path="/saved-movies" element={<SavedMovies />} />
-          <Route path="/profile" element={<Profile />} />
-        <Route path="/signup" element={<Register handleRegister={handleRegister} />} />
-        <Route path="/signin" element={<Login handleLogin={handleLogin}/>} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <CurrentUserContext.Provider value={currentUser}>
+        <Routes>
+          <Route path="/" element={<Main loggedIn={loggedIn}/>} />
+          <Route path="/movies" element={
+            <ProtectedRoute redirectTo="/" loggedIn={loggedIn}>
+              <Movies loggedIn={loggedIn}/>
+            </ProtectedRoute>} />
+          <Route path="/saved-movies" element={
+            <ProtectedRoute redirectTo="/" loggedIn={loggedIn}>
+              <SavedMovies loggedIn={loggedIn}/>
+            </ProtectedRoute>} />
+          <Route path="/profile" element={
+            <ProtectedRoute redirectTo="/" loggedIn={loggedIn}>
+              <Profile
+                loggedIn={loggedIn}
+                signOut={handleSignOut}/>
+            </ProtectedRoute>} />
+          <Route path="/signup" element={<Register handleRegister={handleRegister} />} />
+          <Route path="/signin" element={<Login handleLogin={handleLogin}/>} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </CurrentUserContext.Provider>
     </div>
   );
 }

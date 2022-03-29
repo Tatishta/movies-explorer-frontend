@@ -4,7 +4,9 @@ import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
 
 
-function Profile() {
+function Profile(props) {
+
+  const { loggedIn, signOut } = props;
 
   const [isSidebarOpen, setSidebarOpen] = React.useState(false);
 
@@ -18,7 +20,9 @@ function Profile() {
 
   return (
     <>
-    <Header onSidebarOpen={handleSidebarOpen}/>
+    <Header
+      loggedIn={loggedIn}
+      onSidebarOpen={handleSidebarOpen}/>
       <div className="profile">
         <h4 className="profile__title">Привет, Виталий!</h4>
         <form
@@ -44,7 +48,8 @@ function Profile() {
             type="submit">Редактировать</button>
           <button
             className="profile__exit"
-            type="submit">Выйти из аккаунта</button>
+            onClick={signOut}
+            type="button">Выйти из аккаунта</button>
         </form>
       </div>
       <Sidebar isOpen={isSidebarOpen} closeButton={handleSidebarClose} />

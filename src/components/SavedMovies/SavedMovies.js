@@ -10,7 +10,9 @@ import film1 from '../../images/film1.jpg';
 import film2 from '../../images/film2.jpg';
 import film3 from '../../images/film3.jpg';
 
-function SavedMovies() {
+function SavedMovies(props) {
+
+  const { loggedIn } = props;
 
   const [isSidebarOpen, setSidebarOpen] = React.useState(false);
 
@@ -24,7 +26,9 @@ function SavedMovies() {
 
   return (
     <section className="movies">
-      <Header onSidebarOpen={handleSidebarOpen} />
+      <Header
+        loggedIn={loggedIn}
+        onSidebarOpen={handleSidebarOpen} />
       <SearchForm />
       <MoviesCardList isMoreButtonNeed={false}>
         <MoviesCard
