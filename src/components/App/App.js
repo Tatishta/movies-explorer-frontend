@@ -19,10 +19,22 @@ function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({})
 
+  React.useEffect(() => {
+    auth.checkToken().then((res) => {
+    if (res) {
+      setCurrentUser({name: res.user.name, email: res.user.email})
+      setLoggedIn(true);
+      navigate("/");
+    }})
+    .catch((err) => {
+      console.log(err);
+    })
+  }, [navigate]);
 
   const handleRegister = (name, email, password) => {
     auth.register(name, email, password)
       .then(() => {
+        setLoggedIn(true);
         navigate("/movies");})
       .catch((err) => {
         console.log(err);

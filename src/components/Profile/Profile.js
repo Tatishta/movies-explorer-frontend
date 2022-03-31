@@ -2,6 +2,7 @@ import React from 'react';
 import './Profile.css';
 import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 
 function Profile(props) {
@@ -18,13 +19,15 @@ function Profile(props) {
     setSidebarOpen(false);
   }
 
+  const currentUser = React.useContext(CurrentUserContext);
+
   return (
     <>
     <Header
       loggedIn={loggedIn}
       onSidebarOpen={handleSidebarOpen}/>
       <div className="profile">
-        <h4 className="profile__title">Привет, Виталий!</h4>
+        <h4 className="profile__title">{`Привет, ${currentUser.name}!`}</h4>
         <form
           className="profile__form">
           <label className="profile__label profile__text">Имя
