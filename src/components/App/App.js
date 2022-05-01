@@ -10,6 +10,7 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import UserProtectedRoute from '../UsersProtectedRoute/UsersProtectedRoute';
 import * as auth from '../../utils/auth'
 
 function App() {
@@ -22,14 +23,14 @@ function App() {
   React.useEffect(() => {
     auth.checkToken().then((res) => {
     if (res) {
-      setCurrentUser({name: res.user.name, email: res.user.email})
+      console.log(res);
       setLoggedIn(true);
-      navigate("/");
+      setCurrentUser({name: res.user.name, email: res.user.email})
     }})
     .catch((err) => {
       console.log(err);
     })
-  }, [navigate]);
+  }, []);
 
   const handleRegister = (name, email, password) => {
     auth.register(name, email, password)
@@ -79,10 +80,17 @@ function App() {
             <ProtectedRoute redirectTo="/" loggedIn={loggedIn}>
               <Profile
                 loggedIn={loggedIn}
-                signOut={handleSignOut}/>
+                signOut={handleSignOut}
+                currentUser={currentUser}/>
             </ProtectedRoute>} />
-          <Route path="/signup" element={<Register handleRegister={handleRegister} />} />
-          <Route path="/signin" element={<Login handleLogin={handleLogin}/>} />
+          <Route path="/signup" element={
+            <UserProtectedRoute redirectTo="/movies" loggedIn={loggedIn}>
+              <Register handleRegister={handleRegister} />
+            </UserProtectedRoute>} />
+          <Route path="/signin" element={
+            <UserProtectedRoute redirectTo="/movies" loggedIn={loggedIn}>
+              <Login handleLogin={handleLogin}/>
+            </UserProtectedRoute>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </CurrentUserContext.Provider>

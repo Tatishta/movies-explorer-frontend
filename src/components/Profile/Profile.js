@@ -2,12 +2,11 @@ import React from 'react';
 import './Profile.css';
 import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 
 function Profile(props) {
 
-  const { loggedIn, signOut } = props;
+  const { loggedIn, signOut, currentUser } = props;
 
   const [isSidebarOpen, setSidebarOpen] = React.useState(false);
 
@@ -19,15 +18,13 @@ function Profile(props) {
     setSidebarOpen(false);
   }
 
-  const currentUser = React.useContext(CurrentUserContext);
-
   return (
     <>
     <Header
       loggedIn={loggedIn}
       onSidebarOpen={handleSidebarOpen}/>
       <div className="profile">
-        <h4 className="profile__title">{`Привет, ${currentUser.name}!`}</h4>
+        <h4 className="profile__title">Привет, {currentUser.name}!</h4>
         <form
           className="profile__form">
           <label className="profile__label profile__text">Имя
@@ -35,7 +32,7 @@ function Profile(props) {
               type="text"
               name="name"
               className="profile__input profile__text"
-              placeholder="Виталий"
+              value={currentUser.name}
               required/>
           </label>
           <label className="profile__label profile__text">E-mail
@@ -43,7 +40,7 @@ function Profile(props) {
               type="email"
               name="email"
               className="profile__input profile__text"
-              placeholder="pochta@yandex.ru"
+              value={currentUser.email}
               required/>
           </label>
           <button
