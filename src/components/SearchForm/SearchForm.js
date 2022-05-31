@@ -4,14 +4,26 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
 function SearchForm() {
 
+  const [searchValue, setSearchValue] = React.useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  }
+
+  const handleChange = (e) => {
+    setSearchValue(e.target.value);
+  }
+
   return (
     <div className="search">
-      <form className="search__form">
+      <form className="search__form" onSubmit={handleSubmit}>
         <input
           type="text"
           className="search__input"
           placeholder="Фильм"
           name="movie"
+          onChange={handleChange}
+          value={searchValue}
           required>
         </input>
         <button
