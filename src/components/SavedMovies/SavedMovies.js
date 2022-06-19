@@ -5,13 +5,13 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
 import Footer from '../Footer/Footer';
-import MoviesCard from '../MoviesCard/MoviesCard';
-import film1 from '../../images/film1.jpg';
-import film2 from '../../images/film2.jpg';
-import film3 from '../../images/film3.jpg';
+import {projectApi} from "../../utils/MainApi";
+import {useAppContext} from "../../contexts/AppContext";
+import {filterMovies} from "../../utils/MoviesUtils";
 
 function SavedMovies(props) {
-
+  const { state: { savedMovies }, dispatch } = useAppContext();
+  const [searchParams, setSearchParams] = React.useState(null);
   const { loggedIn } = props;
 
   const [isSidebarOpen, setSidebarOpen] = React.useState(false);
@@ -24,26 +24,43 @@ function SavedMovies(props) {
     setSidebarOpen(false);
   }
 
+  React.useEffect(() => {
+    dispatch({ type: 'setIsLoading', payload: { isLoading: true }});
+    projectApi.fetchSavedMovies()
+      .then((res) => {
+        dispatch({ type: 'savedMoviesLoaded', payload: { savedMovies: res }});
+      })
+      .catch((err) => {
+        console.error(err)
+        dispatch({ type: 'setIsLoading', payload: { isLoading: false }});
+      })
+  }, [dispatch]);
+
+  function removeSavedMovie(movie) {
+    projectApi.removeMovie(movie._id)
+      .then(() => dispatch({ type: 'unSaveMovie', payload: { movieId: movie.movieId }}))
+      .catch(err => console.error(err));
+  }
+
+  const mergedMovies = savedMovies?.movies?.map(it => ({...it, isSaved: true})) || [];
+  const filteredMovies = searchParams ? filterMovies(mergedMovies, searchParams.searchQuery, searchParams.isShort) : mergedMovies;
+
   return (
     <section className="movies">
       <Header
         loggedIn={loggedIn}
         onSidebarOpen={handleSidebarOpen} />
-      <SearchForm />
-      <MoviesCardList isMoreButtonNeed={false}>
-        <MoviesCard
-          src={film1}
-          name="33 слова о дизайне"
-          time="1ч 17м" />
-        <MoviesCard
-          src={film2}
-          name="Киноальманах «100 лет дизайна»"
-          time="1ч 17м" />
-        <MoviesCard
-          src={film3}
-          name="В погоне за Бенкси"
-          time="1ч 17м" />
-      </MoviesCardList>
+      <SearchForm onSubmit={setSearchParams} allowSubmitWithoutQuery={true}/>
+        {(!mergedMovies || !mergedMovies.length) && (
+          <p className="movies__message">Вы еще ничего не сохранили. Попробуйте, вам понравится!</p>
+        )}
+        {(!!filteredMovies && !!filteredMovies.length) && (
+          <MoviesCardList currentPage="saved-movies" movies={filteredMovies} onSave={null}
+                          onRemove={removeSavedMovie}/>
+        )}
+        {(mergedMovies && (!filteredMovies || !filteredMovies.length)) && (
+          <p className="movies__message">К сожалению, мы ничего не нашли. Попробуйте еще раз!</p>
+        )}
       <Sidebar isOpen={isSidebarOpen} closeButton={handleSidebarClose} />
       <Footer />
     </section>

@@ -3,14 +3,17 @@ import './FilterCheckbox.css';
 
 function FilterCheckbox(props) {
 
-  const [isActive, setIsActive] = React.useState(false);
+  const { defaultValue, onChange, name } = props;
+  const [isActive, setIsActive] = React.useState(defaultValue);
 
   const checkBoxClassName = isActive ? "filter__checkbox filter__checkbox_active" : "filter__checkbox";
   const toggleClassName = isActive ? "filter__toggle filter__toggle_active" : "filter__toggle";
 
-  function toggleHandler() {
-    setIsActive(!isActive);
-  }
+  const toggleHandler = () => {
+    const value = !isActive;
+    setIsActive(value);
+    onChange(value);
+  };
 
   return (
     <div className="filter">
@@ -19,7 +22,7 @@ function FilterCheckbox(props) {
           <div type="toggle" className={toggleClassName} />
         </div>
         <span className="filter__shorts">
-          {props.name}
+          {name}
         </span>
     </div>
   );

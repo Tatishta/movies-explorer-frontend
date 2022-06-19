@@ -2,12 +2,24 @@ import React from 'react';
 import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-function SearchForm() {
+function SearchForm(props) {
 
-  const [searchValue, setSearchValue] = React.useState('');
+  const { defaultSearchQuery, defaultIsShort, onSubmit, allowSubmitWithoutQuery } = props;
+
+  const [isShort, setIsShort] = React.useState(defaultIsShort || false);
+  const [searchQuery, setSearchValue] = React.useState(defaultSearchQuery || "");
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    onSubmit({searchQuery, isShort});
+  }
+
+  function handleToggleIsShort(value) {
+    if (searchQuery || allowSubmitWithoutQuery) {
+      onSubmit({ searchQuery, isShort: value });
+    }
+    setIsShort(value);
   }
 
   const handleChange = (e) => {
@@ -23,7 +35,7 @@ function SearchForm() {
           placeholder="Фильм"
           name="movie"
           onChange={handleChange}
-          value={searchValue}
+          value={searchQuery}
           required>
         </input>
         <button
@@ -32,7 +44,10 @@ function SearchForm() {
           Поиск
         </button>
       </form>
-      <FilterCheckbox name="Короткометражки"/>
+      <FilterCheckbox
+        defaultValue={defaultIsShort}
+        onChange={handleToggleIsShort}
+        name="Короткометражки"/>
     </div>
   );
 }

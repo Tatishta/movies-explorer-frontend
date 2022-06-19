@@ -1,17 +1,23 @@
 import React from 'react';
 import './MoviesCardList.css';
-import ButtonGrey from '../ButtonGrey/ButtonGrey';
+import MoviesCard from "../MoviesCard/MoviesCard";
 
 
 
 function MoviesCardList(props) {
 
+  const { movies, onSave, onRemove } = props;
+  const displayMovies = movies;
+
+
+
   return (
     <section className="movies-cards">
       <div className="movies-cards__list">
-        {props.children}
+        {displayMovies.map(i => {
+          return <MoviesCard key={i.id || i._id} movie={i} onSave={onSave} onRemove={onRemove}/>;
+        })}
       </div>
-      {props.isMoreButtonNeed ? <ButtonGrey name="Ещё"/> : (<></>)}
     </section>
   );
 }
