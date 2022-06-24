@@ -16,4 +16,12 @@ export function setCachedSearchState(state) {
   }
 }
 
+export function clearCachedSearchState() {
+  try {
+    localStorage.removeItem('searchState');
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 

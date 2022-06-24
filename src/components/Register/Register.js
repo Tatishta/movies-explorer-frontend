@@ -1,28 +1,17 @@
 import React from 'react';
 import FormInput from '../FormInput/FormInput';
 import Auth from '../Auth/Auth';
+import {useFormAndValidation} from "../../hooks/useFormAndValidation";
+import {clearCachedSearchState} from "../../utils/localStorage";
 
 function Register({handleRegister}) {
 
+  const {values, handleChange, errors, isValid} = useFormAndValidation();
+
   const handleSubmit = (e) => {
-    e.preventDefault();
-    const {name, email, password} = state;
-    handleRegister(name, email, password)
+    handleRegister(values.name, values.email, values.password);
   }
 
-  const [state, setState] = React.useState({
-    name: '',
-    email: '',
-    password: ''
-  })
-
-  const handleChange = (e) => {
-    const {name, value} = e.target;
-    setState((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
 
   return (
     <Auth
@@ -31,23 +20,31 @@ function Register({handleRegister}) {
       buttonBlueName="Войти"
       buttonBlueTo="/signin"
       submit="Зарегистрироваться"
-      onSubmit={handleSubmit}>
+      onSubmit={handleSubmit}
+      isValid={isValid}
+      values={values}>
       <FormInput
         label="Имя"
         placeholder="Виталий"
         type="text"
         inputName="name"
+        value={values.name}
+        error={errors.name}
         onChange={handleChange} />
       <FormInput
         label="E-mail"
         placeholder="pochta@yandex.ru"
         type="email"
         inputName="email"
+        value={values.email}
+        error={errors.email}
         onChange={handleChange} />
       <FormInput
         label="Пароль"
         type="text"
         inputName="password"
+        value={values.password}
+        error={errors.password}
         onChange={handleChange} />
     </Auth>
   );

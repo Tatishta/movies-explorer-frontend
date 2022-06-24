@@ -18,6 +18,22 @@ class Api {
     return Promise.reject(`Ошибка: ${res.status}`)
   }
 
+
+  editUserInfo(name, email) {
+    const queryParams = {
+      ...this._queryParams,
+      method: 'PATCH',
+      body: JSON.stringify({
+        name: name,
+        email: email
+      })
+    }
+    return fetch(`${this._url}/users/me`, queryParams)
+      .then(res => {
+        return this._getResult(res)
+      });
+  }
+
   fetchSavedMovies() {
     return fetch(`${this._url}/movies`, this._queryParams)
       .then(res => {
