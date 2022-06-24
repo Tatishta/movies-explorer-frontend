@@ -8,9 +8,10 @@ import Footer from '../Footer/Footer';
 import {projectApi} from "../../utils/MainApi";
 import {useAppContext} from "../../contexts/AppContext";
 import {filterMovies} from "../../utils/MoviesUtils";
+import Preloader from "../Preloader/Preloader";
 
 function SavedMovies(props) {
-  const { state: { savedMovies }, dispatch } = useAppContext();
+  const { state: { isLoading, savedMovies }, dispatch } = useAppContext();
   const [searchParams, setSearchParams] = React.useState(null);
   const { loggedIn } = props;
 
@@ -51,15 +52,19 @@ function SavedMovies(props) {
         loggedIn={loggedIn}
         onSidebarOpen={handleSidebarOpen} />
       <SearchForm onSubmit={setSearchParams} allowSubmitWithoutQuery={true}/>
+      {isLoading ? (<Preloader/>) : (
+        <>
         {(!mergedMovies || !mergedMovies.length) && (
-          <p className="movies__message">Вы еще ничего не сохранили. Попробуйте, вам понравится!</p>
-        )}
-        {(!!filteredMovies && !!filteredMovies.length) && (
-          <MoviesCardList currentPage="saved-movies" movies={filteredMovies} onSave={null}
-                          onRemove={removeSavedMovie}/>
-        )}
-        {(mergedMovies && (!filteredMovies || !filteredMovies.length)) && (
-          <p className="movies__message">К сожалению, мы ничего не нашли. Попробуйте еще раз!</p>
+            <p className="movies__message">Вы еще ничего не сохранили. Попробуйте, вам понравится!</p>
+          )}
+          {(!!filteredMovies && !!filteredMovies.length) && (
+            <MoviesCardList currentPage="saved-movies" movies={filteredMovies} onSave={null}
+                            onRemove={removeSavedMovie}/>
+          )}
+          {(mergedMovies && (!filteredMovies || !filteredMovies.length)) && (
+            <p className="movies__message">К сожалению, мы ничего не нашли. Попробуйте еще раз!</p>
+          )}
+        </>
         )}
       <Sidebar isOpen={isSidebarOpen} closeButton={handleSidebarClose} />
       <Footer />

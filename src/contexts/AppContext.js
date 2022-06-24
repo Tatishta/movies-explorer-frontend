@@ -4,11 +4,14 @@ import {removeMovieById} from "../utils/MoviesUtils";
 
 export const reducer = (state, action) => {
   switch (action.type) {
+    case "setIsLoading":
+      return {...state, isLoading: action.payload.isLoading};
     case "savedMoviesLoaded":
       return {...state, savedMovies: action.payload.savedMovies, isLoading: false };
     case "onSearchFormSubmit":
       return {
         ...state,
+        isLoading: false,
         movies: action.payload.movies,
         savedMovies: action.payload.savedMovies,
         searchParams: action.payload.searchParams

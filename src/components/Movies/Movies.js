@@ -9,10 +9,11 @@ import {useAppContext} from "../../contexts/AppContext";
 import {getMovies} from "../../utils/MoviesApi";
 import {filterMovies, mergeMovies} from "../../utils/MoviesUtils";
 import {projectApi} from "../../utils/MainApi";
+import Preloader from "../Preloader/Preloader";
 
 
 function Movies(props) {
-  const { state: { movies, savedMovies, searchParams }, dispatch } = useAppContext();
+  const { state: { isLoading, movies, savedMovies, searchParams }, dispatch } = useAppContext();
   const { searchQuery, isShort } = (searchParams || {});
 
   const { loggedIn } = props;
@@ -66,14 +67,16 @@ function Movies(props) {
         defaultSearchQuery={searchQuery}
         defaultIsShort={isShort}
         onSubmit={handleSearchSubmit}/>
-      <>
-        {!!searchQuery && (!displayMovies || !displayMovies.length) && (
-          <p className="movies__message">К сожалению, мы ничего не нашли. Попробуйте еще раз!</p>
-        )}
-        {!!searchQuery && (!!displayMovies && !!displayMovies.length) && (
-          <MoviesCardList currentPage="movies" movies={displayMovies} onSave={onSave}/>
-        )}
-      </>
+      {isLoading ? (<Preloader/>) : (
+        <>
+          {!!searchQuery && (!displayMovies || !displayMovies.length) && (
+            <p className="movies__message">К сожалению, мы ничего не нашли. Попробуйте еще раз!</p>
+          )}
+          {!!searchQuery && (!!displayMovies && !!displayMovies.length) && (
+            <MoviesCardList currentPage="movies" movies={displayMovies} onSave={onSave}/>
+          )}
+        </>
+      )}
       <Sidebar isOpen={isSidebarOpen} closeButton={handleSidebarClose} />
       <Footer />
     </section>
