@@ -7,7 +7,7 @@ import * as auth from "../../utils/auth";
 import {useNavigate} from "react-router";
 
 
-function Register() {
+function Register({setLoggedIn}) {
 
   const {values, handleChange, errors, isValid, resetForm} = useFormAndValidation();
   const [registerError, setRegisterError] = React.useState("");
@@ -17,6 +17,7 @@ function Register() {
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
+    console.log('were here');
     e.preventDefault();
     handleRegister(values.name, values.email, values.password);
   }
@@ -28,14 +29,16 @@ function Register() {
 
   const handleRegister = (name, email, password) => {
     auth.register(name, email, password)
-      .then((res) => {
-        if (res.email) {
+      .then((data) => {
+        console.log(data)
+        if (data.email) {
+          console.log(data)
           clearCachedSearchState();
+          setLoggedIn(true);
           navigate("/movies");
-        } else if (res?.error) {
-          setRegisterError(res.error);
+        } else if (data?.error) {
+          setRegisterError(data.error);
         } else {
-          console.log(res)
           setRegisterError(defaultErrorText)
         }
       })
@@ -47,7 +50,6 @@ function Register() {
         }
       })
   };
-
 
   return (
     <Auth

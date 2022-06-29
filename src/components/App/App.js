@@ -1,6 +1,5 @@
 import './App.css';
 import React from 'react';
-import {Routes, Route, useNavigate} from "react-router-dom";
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -14,6 +13,7 @@ import UserProtectedRoute from '../UsersProtectedRoute/UsersProtectedRoute';
 import * as auth from '../../utils/auth';
 import {AppContext, reducerWithLocalStorage} from "../../contexts/AppContext";
 import {getCachedSearchState} from "../../utils/localStorage";
+import {Route, Routes, useNavigate} from "react-router";
 
 function App() {
   const [state, dispatch] = React.useReducer(reducerWithLocalStorage, getCachedSearchState());
@@ -27,12 +27,10 @@ function App() {
 
   React.useEffect(() => {
     auth.checkToken().then((res) => {
-      if (res) {
-        console.log(res);
-        setLoggedIn(true);
-        setCurrentUser({name: res.user.name, email: res.user.email})
-      }
-    })
+        if (res) {
+          setCurrentUser({name: res.user.name, email: res.user.email});
+          setLoggedIn(true);}
+      })
       .catch((err) => {
         console.log(err);
       })
@@ -54,29 +52,30 @@ function App() {
       <AppContext.Provider value={{state, dispatch}}>
         <CurrentUserContext.Provider value={currentUser}>
           <Routes>
-            <Route path="/" element={<Main loggedIn={isLoggedIn}/>}/>
+            <Route path="/" element={<Main loggedIn={loggedIn}/>}/>
             <Route path="/movies" element={
-              <ProtectedRoute redirectTo="/" loggedIn={isLoggedIn}>
-                <Movies loggedIn={isLoggedIn}/>
+              <ProtectedRoute redirectTo="/" loggedIn={loggedIn}>
+                <Movies loggedIn={loggedIn}/>
               </ProtectedRoute>}/>
             <Route path="/saved-movies" element={
-              <ProtectedRoute redirectTo="/" loggedIn={isLoggedIn}>
+              <ProtectedRoute redirectTo="/" loggedIn={loggedIn}>
                 <SavedMovies loggedIn={loggedIn}/>
               </ProtectedRoute>}/>
             <Route path="/profile" element={
-              <ProtectedRoute redirectTo="/" loggedIn={isLoggedIn}>
+              <ProtectedRoute redirectTo="/" loggedIn={loggedIn}>
                 <Profile
-                  loggedIn={isLoggedIn}
+                  loggedIn={loggedIn}
                   signOut={handleSignOut}
-                  currentUser={currentUser}/>
+                  currentUser={currentUser}
+                  setCurrentUser={setCurrentUser}/>
               </ProtectedRoute>}/>
             <Route path="/signup" element={
-              <UserProtectedRoute redirectTo="/movies" loggedIn={isLoggedIn}>
-                <Register/>
+              <UserProtectedRoute redirectTo="/movies" loggedIn={loggedIn}>
+                <Register setLoggedIn={setLoggedIn} setCurrentUser={setCurrentUser}/>
               </UserProtectedRoute>}/>
             <Route path="/signin" element={
-              <UserProtectedRoute redirectTo="/movies" loggedIn={isLoggedIn}>
-                <Login />
+              <UserProtectedRoute redirectTo="/movies" loggedIn={loggedIn}>
+                <Login setLoggedIn={setLoggedIn}/>
               </UserProtectedRoute>}/>
             <Route path="*" element={<NotFound/>}/>
           </Routes>

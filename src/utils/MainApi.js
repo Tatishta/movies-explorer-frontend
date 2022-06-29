@@ -18,7 +18,6 @@ class Api {
     return Promise.reject(`Ошибка: ${res.status}`)
   }
 
-
   editUserInfo(name, email) {
     const queryParams = {
       ...this._queryParams,

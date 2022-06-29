@@ -7,6 +7,18 @@ const getResult = (res) => {
     return Promise.reject(`Ошибка: ${res.status}`)
 }
 
+export const getUserInfo = () => {
+  return fetch(`${BASE_URL}/users/me`, {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+  })
+    .then(getResult)
+}
+
 export const register = (name, email, password) => {
     return fetch(`${BASE_URL}/signup`, {
       method: 'POST',
@@ -21,7 +33,10 @@ export const register = (name, email, password) => {
       }),
       credentials: 'include',
     })
-    .then(getResult)
+      .then(getResult)
+      .then(res => {
+        return {email: email};
+      });
 }
 
 export const authorize = (email, password) => {

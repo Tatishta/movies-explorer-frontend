@@ -19,5 +19,9 @@ export function useFormAndValidation(defaultValues = {}) {
     setIsValid(newIsValid);
   }, [setValues, setErrors, setIsValid]);
 
-  return { values, handleChange, errors, isValid, resetForm, setValues, setIsValid };
+  const isSameProfileData = (currentUser, values) => {
+    return values.name === currentUser.name && values.email === currentUser.email;
+  }
+
+  return { values, handleChange, errors, isValid, resetForm, setValues, setIsValid, isSameProfileData };
 }

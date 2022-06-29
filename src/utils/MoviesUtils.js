@@ -1,4 +1,16 @@
-import React from "react";
+
+export function mergeMovies(movies, savedMovies) {
+  if (movies) {
+    if (savedMovies) {
+      return movies.map(it => {
+        const isSaved = savedMovies.find(savedMovie => savedMovie.movieId === it.id);
+        return { ...it, isSaved: !!isSaved };
+      });
+    }
+    return movies;
+  }
+  return null
+}
 
 export function filterMovies(movies, keyword, isShort) {
   if (movies) {
@@ -38,19 +50,21 @@ export function removeMovieById(movies, key, id) {
   }
 }
 
-export function mergeMovies(movies, savedMovies) {
-  if (movies) {
-    if (savedMovies) {
-      return movies.map(it => {
-        const isSaved = savedMovies.find(savedMovie => savedMovie.movieId === it.id);
-        return { ...it, isSaved: !!isSaved };
-      });
-    }
-    return movies;
-  }
-  return null
-}
-
 export function getImageUrl(path) {
   return `https://api.nomoreparties.co/${path}`;
+}
+
+export function getInitialCardsCount() {
+  const screenWidth = window.innerWidth;
+  if (screenWidth < 720) return 5;
+  if (screenWidth < 890) return 8;
+  return 12;
+}
+
+export function getMoreCardsCount() {
+  const screenWidth = window.innerWidth;
+  if (screenWidth <= 720) return 1;
+  if (screenWidth <= 890) return 2;
+  if (screenWidth <= 1140) return 3;
+  return 4;
 }
