@@ -13,7 +13,7 @@ import UserProtectedRoute from '../UsersProtectedRoute/UsersProtectedRoute';
 import * as auth from '../../utils/auth';
 import {AppContext, reducerWithLocalStorage} from "../../contexts/AppContext";
 import {getCachedSearchState} from "../../utils/localStorage";
-import {Route, Routes, useNavigate} from "react-router";
+import {Route, Routes, useNavigate} from "react-router-dom";
 
 function App() {
   const [state, dispatch] = React.useReducer(reducerWithLocalStorage, getCachedSearchState());
@@ -23,7 +23,6 @@ function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
 
   const [currentUser, setCurrentUser] = React.useState({})
-  const isLoggedIn = !!currentUser.email;
 
   React.useEffect(() => {
     auth.checkToken().then((res) => {

@@ -4,7 +4,7 @@ import Auth from '../Auth/Auth';
 import {useFormAndValidation} from "../../hooks/useFormAndValidation";
 import {clearCachedSearchState} from "../../utils/localStorage";
 import * as auth from "../../utils/auth";
-import {useNavigate} from "react-router";
+import {useNavigate} from "react-router-dom";
 
 
 function Register({setLoggedIn}) {
