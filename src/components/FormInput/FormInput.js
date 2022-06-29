@@ -10,11 +10,13 @@ function FormInput(props) {
   return (
     <label className="form-input">{label}
       <input
-        className="form-input__input"
+        className={`form-input__input ${!props.error ? '' : 'form-input__input_error'}`}
         placeholder={placeholder}
         type={inputType}
         name={inputName}
         onChange={onChange}
+        pattern={props.pattern}
+        autoComplete="off"
         required
       />
       <span className={errorClassName}>{error}</span>

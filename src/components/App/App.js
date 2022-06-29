@@ -21,7 +21,9 @@ function App() {
 
 
   const [loggedIn, setLoggedIn] = React.useState(false);
+
   const [currentUser, setCurrentUser] = React.useState({})
+  const isLoggedIn = !!currentUser.email;
 
   React.useEffect(() => {
     auth.checkToken().then((res) => {
@@ -35,27 +37,6 @@ function App() {
         console.log(err);
       })
   }, []);
-
-  const handleRegister = (name, email, password) => {
-    auth.register(name, email, password)
-      .then(() => {
-        setLoggedIn(true);
-        navigate("/movies");
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  };
-
-  const handleLogin = (email, password) => {
-    return auth.authorize(email, password)
-      .then(() => {
-        setLoggedIn(true);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  };
 
   const handleSignOut = () => {
     auth.signOut()
@@ -73,29 +54,29 @@ function App() {
       <AppContext.Provider value={{state, dispatch}}>
         <CurrentUserContext.Provider value={currentUser}>
           <Routes>
-            <Route path="/" element={<Main loggedIn={loggedIn}/>}/>
+            <Route path="/" element={<Main loggedIn={isLoggedIn}/>}/>
             <Route path="/movies" element={
-              <ProtectedRoute redirectTo="/" loggedIn={loggedIn}>
-                <Movies loggedIn={loggedIn}/>
+              <ProtectedRoute redirectTo="/" loggedIn={isLoggedIn}>
+                <Movies loggedIn={isLoggedIn}/>
               </ProtectedRoute>}/>
             <Route path="/saved-movies" element={
-              <ProtectedRoute redirectTo="/" loggedIn={loggedIn}>
+              <ProtectedRoute redirectTo="/" loggedIn={isLoggedIn}>
                 <SavedMovies loggedIn={loggedIn}/>
               </ProtectedRoute>}/>
             <Route path="/profile" element={
-              <ProtectedRoute redirectTo="/" loggedIn={loggedIn}>
+              <ProtectedRoute redirectTo="/" loggedIn={isLoggedIn}>
                 <Profile
-                  loggedIn={loggedIn}
+                  loggedIn={isLoggedIn}
                   signOut={handleSignOut}
                   currentUser={currentUser}/>
               </ProtectedRoute>}/>
             <Route path="/signup" element={
-              <UserProtectedRoute redirectTo="/movies" loggedIn={loggedIn}>
-                <Register handleRegister={handleRegister}/>
+              <UserProtectedRoute redirectTo="/movies" loggedIn={isLoggedIn}>
+                <Register/>
               </UserProtectedRoute>}/>
             <Route path="/signin" element={
-              <UserProtectedRoute redirectTo="/movies" loggedIn={loggedIn}>
-                <Login handleLogin={handleLogin}/>
+              <UserProtectedRoute redirectTo="/movies" loggedIn={isLoggedIn}>
+                <Login />
               </UserProtectedRoute>}/>
             <Route path="*" element={<NotFound/>}/>
           </Routes>

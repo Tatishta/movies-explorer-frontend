@@ -5,28 +5,7 @@ import ButtonBlue from '../ButtonBlue/ButtonBlue';
 
 function Auth(props) {
 
-  const {title, onSubmit,  submit, comment, buttonBlueName, children, buttonBlueTo, values, isValid} = props;
-
-  const defaultError = 'Произошла ошибка. Попробуйте еще раз!';
-
-  const [status, setStatus] = React.useState({ ok: true, text: defaultError });
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    onSubmit(values)
-      .then(res => {
-        setStatus({
-          ok: true,
-          text: props.succesText || 'Успешно!',
-        })
-      })
-      .catch(err => {
-        setStatus({
-          ok: false,
-          text: err.message || defaultError,
-        })
-      })
-  }
+  const {title, handleSubmit, submitName, comment, buttonBlueName, children, buttonBlueTo, buttonBlueClick, isValid, errorText, isError} = props;
 
   return (
     <div className="auth">
@@ -37,16 +16,17 @@ function Auth(props) {
         onSubmit={handleSubmit}
         noValidate>
         {children}
-        <span className={`auth__error ${status.ok?'':'auth__error_visible'}`}>{status.text}</span>
+        <span className={`auth__error ${!isError ? '':'auth__error_visible'}`}>{errorText}</span>
         <button
             className={`auth__submit ${!isValid ? 'auth__submit_disabled' : ''}`}
-            type="submit" disabled={!isValid}>{submit}</button>
+            type="submit" disabled={!isValid}>{submitName}</button>
       </form>
       <div className="auth__comment">
         <p className="auth__text">{comment}</p>
         <ButtonBlue
           name={buttonBlueName}
-          to={buttonBlueTo} />
+          to={buttonBlueTo}
+          onClick={buttonBlueClick}/>
       </div>
     </div>
   );

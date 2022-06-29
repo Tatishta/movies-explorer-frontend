@@ -3,44 +3,49 @@ import React from 'react';
 import { useNavigate } from "react-router-dom";
 import FormInput from '../FormInput/FormInput';
 import Auth from '../Auth/Auth';
+import {useFormAndValidation} from "../../hooks/useFormAndValidation";
+import * as auth from "../../utils/auth";
+import {clearCachedSearchState} from "../../utils/localStorage";
 
-function Login({handleLogin}) {
+function Login() {
 
-  const [state, setState] = React.useState({
-    email: '',
-    password: ''
-  })
+  const {values, handleChange, errors, isValid, resetForm} = useFormAndValidation();
+  const [loginError, setLoginError] = React.useState("");
+  const isError = !!loginError;
+  const defaultErrorText = 'Что-то пошло не так! Попробуйте ещё раз.';
 
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const {name, value} = e.target;
-    setState((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  const handleRemoveErrors = () => {
+    resetForm();
+    setLoginError("");
+  }
 
-  const reset = () => {
-    setState({
-      email:'',
-      password:'',
-    });
-  };
+  function handleSubmit(e) {
+    console.log('were hereee');
 
-  const handleSubmit = (e) => {
     e.preventDefault();
-    if (!state.email || !state.password) {
-      return;
-    }
+    console.log('were here');
+    handleLogin(values.email, values.password);
+    resetForm();
+  }
 
-    handleLogin(state.email, state.password)
-      .then(reset)
-      .then(() => navigate("/movies"))
-      .catch((e) => {
-        console.log(e);
-      });
-  };
+  const handleLogin = (email, password) => {
+    auth.authorize(email, password)
+      .then((res) => {
+        console.log(res)
+        if (res?.error) {
+          setLoginError(res.error);
+        } else {
+          clearCachedSearchState();
+          navigate("/movies");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoginError(defaultErrorText);
+      })
+  }
 
   return (
     <Auth
@@ -48,18 +53,28 @@ function Login({handleLogin}) {
       comment="Ещё не зарегистрированы?"
       buttonBlueName="Регистрация"
       buttonBlueTo="/signup"
-      submit="Войти"
-      onSubmit={handleSubmit}>
+      buttonBlueClick={handleRemoveErrors}
+      submitName="Войти"
+      handleSubmit={handleSubmit}
+      isValid={isValid}
+      values={values}
+      errorText={loginError}
+      isError={isError}>
       <FormInput
         label="E-mail"
         placeholder="pochta@yandex.ru"
         type="email"
         inputName="email"
+        pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+        value={values.email}
+        error={errors.email}
         onChange={handleChange} />
       <FormInput
         label="Пароль"
         type="text"
         inputName="password"
+        value={values.password}
+        error={errors.password}
         onChange={handleChange} />
     </Auth>
   );

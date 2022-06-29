@@ -21,6 +21,14 @@
   padding-left: 15px;
 }
 
+.form-input__input:focus {
+  outline: none;
+}
+
+.form-input__input_error {
+  color: #EE3465;
+}
+
 .form-input__error {
   font-weight: normal;
   font-size: 10px;
