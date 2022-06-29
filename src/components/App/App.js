@@ -13,11 +13,10 @@ import UserProtectedRoute from '../UsersProtectedRoute/UsersProtectedRoute';
 import * as auth from '../../utils/auth';
 import {AppContext, reducerWithLocalStorage} from "../../contexts/AppContext";
 import {getCachedSearchState} from "../../utils/localStorage";
-import {Route, Routes, useNavigate} from "react-router-dom";
+import {Route, Routes } from "react-router-dom";
 
 function App() {
   const [state, dispatch] = React.useReducer(reducerWithLocalStorage, getCachedSearchState());
-  const navigate = useNavigate();
 
 
   const [loggedIn, setLoggedIn] = React.useState(false);
@@ -39,7 +38,7 @@ function App() {
     auth.signOut()
       .then(() => {
         setLoggedIn(false);
-        navigate("/");
+        window.location.href = '/';
       })
       .catch((err) => {
         console.log(err);

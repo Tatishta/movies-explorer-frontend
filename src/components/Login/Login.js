@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { useNavigate } from "react-router-dom";
 import FormInput from '../FormInput/FormInput';
 import Auth from '../Auth/Auth';
 import {useFormAndValidation} from "../../hooks/useFormAndValidation";
@@ -14,7 +13,6 @@ function Login({setLoggedIn}) {
   const isError = !!loginError;
   const defaultErrorText = 'Что-то пошло не так! Попробуйте ещё раз.';
 
-  const navigate = useNavigate();
 
   const handleRemoveErrors = () => {
     resetForm();
@@ -36,7 +34,7 @@ function Login({setLoggedIn}) {
         } else {
           clearCachedSearchState();
           setLoggedIn(true);
-          navigate("/movies");
+          window.location.href = '/movies';
         }
       })
       .catch((err) => {

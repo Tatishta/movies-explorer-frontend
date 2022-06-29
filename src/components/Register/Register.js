@@ -4,7 +4,6 @@ import Auth from '../Auth/Auth';
 import {useFormAndValidation} from "../../hooks/useFormAndValidation";
 import {clearCachedSearchState} from "../../utils/localStorage";
 import * as auth from "../../utils/auth";
-import {useNavigate} from "react-router-dom";
 
 
 function Register({setLoggedIn}) {
@@ -13,8 +12,6 @@ function Register({setLoggedIn}) {
   const [registerError, setRegisterError] = React.useState("");
   const isError = !!registerError;
   const defaultErrorText = 'Что-то пошло не так! Попробуйте ещё раз.';
-
-  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     console.log('were here');
@@ -30,12 +27,10 @@ function Register({setLoggedIn}) {
   const handleRegister = (name, email, password) => {
     auth.register(name, email, password)
       .then((data) => {
-        console.log(data)
         if (data.email) {
-          console.log(data)
           clearCachedSearchState();
           setLoggedIn(true);
-          navigate("/movies");
+          window.location.href = '/movies';
         } else if (data?.error) {
           setRegisterError(data.error);
         } else {
