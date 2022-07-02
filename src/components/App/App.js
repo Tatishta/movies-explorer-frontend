@@ -34,17 +34,6 @@ function App() {
       })
   }, []);
 
-  const handleSignOut = () => {
-    auth.signOut()
-      .then(() => {
-        setLoggedIn(false);
-        window.location.href = '/';
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  };
-
   return (
     <div className="App">
       <AppContext.Provider value={{state, dispatch}}>
@@ -63,7 +52,6 @@ function App() {
               <ProtectedRoute redirectTo="/" loggedIn={loggedIn}>
                 <Profile
                   loggedIn={loggedIn}
-                  signOut={handleSignOut}
                   currentUser={currentUser}
                   setCurrentUser={setCurrentUser}/>
               </ProtectedRoute>}/>

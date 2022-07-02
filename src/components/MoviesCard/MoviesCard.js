@@ -20,7 +20,9 @@ function MoviesCard(props) {
   return (
     <div className="card">
       <div className="card__overlay">
-        <img className="card__image" src={movieSrc} alt={`Кадр из фильма ${movie.nameRU}`} />
+        <a href={movie.trailerLink} className="card__link" target="_blank" title="Смотреть трейлер">
+          <img className="card__image" src={movieSrc} alt={`Кадр из фильма ${movie.nameRU}`} />
+        </a>
         { window.location.pathname ==="/movies" ? (movie.isSaved ? (
           <button className="card__button card__saved" />
         ) : (

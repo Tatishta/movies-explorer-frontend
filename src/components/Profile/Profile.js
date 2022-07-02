@@ -4,6 +4,8 @@ import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
 import {projectApi} from "../../utils/MainApi";
 import {useFormAndValidation} from "../../hooks/useFormAndValidation";
+import * as auth from "../../utils/auth";
+import {clearCachedSearchState} from "../../utils/localStorage";
 
 
 function Profile(props) {
@@ -68,6 +70,18 @@ function Profile(props) {
       });
   }
 
+  const handleSignOut = () => {
+    resetForm();
+    auth.signOut()
+      .then(() => {
+        clearCachedSearchState();
+        window.location.href = '/';
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  };
+
   return (
     <>
     <Header
@@ -112,7 +126,7 @@ function Profile(props) {
               disabled={isSameData || !isValid}>Редактировать</button>
             <button
               className="profile__exit"
-              onClick={signOut}
+              onClick={handleSignOut}
               type="button">Выйти из аккаунта</button>
           </div>
         </form>

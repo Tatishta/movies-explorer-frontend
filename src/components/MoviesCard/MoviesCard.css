@@ -99,6 +99,10 @@
   height: 18px;
 }
 
+.card__link {
+  cursor: pointer;
+}
+
 @media screen and (max-width: 768px) {
   .card {
     max-width: 339px;

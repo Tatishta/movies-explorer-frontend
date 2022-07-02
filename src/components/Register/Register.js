@@ -62,7 +62,7 @@ function Register({setLoggedIn}) {
       <FormInput
         label="Имя"
         placeholder="Виталий"
-        type="text"
+        inputType="text"
         inputName="name"
         value={values.name}
         error={errors.name}
@@ -71,7 +71,7 @@ function Register({setLoggedIn}) {
       <FormInput
         label="E-mail"
         placeholder="pochta@yandex.ru"
-        type="email"
+        inputType="email"
         inputName="email"
         pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
         value={values.email}
@@ -79,7 +79,7 @@ function Register({setLoggedIn}) {
         onChange={handleChange} />
       <FormInput
         label="Пароль"
-        type="text"
+        inputType="password"
         inputName="password"
         value={values.password}
         error={errors.password}
