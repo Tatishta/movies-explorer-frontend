@@ -6,7 +6,7 @@ import {useFormAndValidation} from "../../hooks/useFormAndValidation";
 import * as auth from "../../utils/auth";
 import {clearCachedSearchState} from "../../utils/localStorage";
 
-function Login({setLoggedIn}) {
+function Login() {
 
   const {values, handleChange, errors, isValid, resetForm} = useFormAndValidation();
   const [loginError, setLoginError] = React.useState("");
@@ -25,15 +25,13 @@ function Login({setLoggedIn}) {
     resetForm();
   }
 
-  const handleLogin = (email, password) => {
+  function handleLogin(email, password) {
     auth.authorize(email, password)
-      .then((res) => {
-        console.log(res)
-        if (res?.error) {
-          setLoginError(res.error);
+      .then((data) => {
+        if (data?.error) {
+          setLoginError(data.error);
         } else {
           clearCachedSearchState();
-          setLoggedIn(true);
           window.location.href = '/movies';
         }
       })

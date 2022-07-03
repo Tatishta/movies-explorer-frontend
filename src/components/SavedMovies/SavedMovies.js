@@ -54,15 +54,15 @@ function SavedMovies(props) {
       <SearchForm onSubmit={setSearchParams} allowSubmitWithoutQuery={true}/>
       {isLoading ? (<Preloader/>) : (
         <>
-        {(!mergedMovies || !mergedMovies.length) && (
-            <p className="movies__message">Вы еще ничего не сохранили. Попробуйте, вам понравится!</p>
-          )}
           {(!!filteredMovies && !!filteredMovies.length) && (
             <MoviesCardList currentPage="saved-movies" movies={filteredMovies} onSave={null}
                             onRemove={removeSavedMovie}/>
           )}
           {(mergedMovies && (!filteredMovies || !filteredMovies.length)) && (
-            <p className="movies__message">К сожалению, мы ничего не нашли. Попробуйте еще раз!</p>
+            <p className="movies__message">К сожалению, мы ничего не нашли.</p>
+          )}
+          {(!mergedMovies || !mergedMovies.length) && (
+            <p className="movies__message">Вы еще ничего не сохранили. Попробуйте, вам понравится!</p>
           )}
         </>
         )}

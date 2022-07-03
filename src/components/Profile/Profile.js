@@ -10,7 +10,7 @@ import {clearCachedSearchState} from "../../utils/localStorage";
 
 function Profile(props) {
 
-  const { loggedIn, signOut, currentUser, setCurrentUser } = props;
+  const { loggedIn, currentUser, setCurrentUser } = props;
 
   const {values, handleChange, errors, isValid, resetForm, isSameProfileData} = useFormAndValidation({
     name: currentUser.name,

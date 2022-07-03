@@ -6,7 +6,7 @@ import {clearCachedSearchState} from "../../utils/localStorage";
 import * as auth from "../../utils/auth";
 
 
-function Register({setLoggedIn}) {
+function Register() {
 
   const {values, handleChange, errors, isValid, resetForm} = useFormAndValidation();
   const [registerError, setRegisterError] = React.useState("");
@@ -24,27 +24,26 @@ function Register({setLoggedIn}) {
     setRegisterError("");
   }
 
-  const handleRegister = (name, email, password) => {
+  function handleRegister(name, email, password) {
     auth.register(name, email, password)
-      .then((data) => {
-        if (data.email) {
-          clearCachedSearchState();
-          setLoggedIn(true);
-          window.location.href = '/movies';
-        } else if (data?.error) {
+      .then(data => {
+        if (data?.error) {
           setRegisterError(data.error);
+        } else if (data.email) {
+          clearCachedSearchState();
+          window.location.href = '/movies';
         } else {
           setRegisterError(defaultErrorText)
         }
       })
       .catch((err) => {
-        if (err === 'Ошибка: 409') {
-          return setRegisterError('Пользователь с таким email уже есть!')
-        } else {
-          setRegisterError(defaultErrorText);
-        }
-      })
-  };
+      if (err === 'Ошибка: 409') {
+        return setRegisterError('Пользователь с таким email уже есть!')
+      } else {
+        setRegisterError(defaultErrorText);
+      }
+    })
+  }
 
   return (
     <Auth
