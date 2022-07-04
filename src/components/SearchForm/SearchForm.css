@@ -55,6 +55,20 @@
   opacity: 0.8;
 }
 
+.search__button_disabled {
+  background: #2F2F2F;
+  color: #C2C2C2;
+  pointer-events: none;
+}
+
+.search__error {
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.2;
+  color: #EE3465;
+  margin-top: 20px;
+}
+
 @media screen and (max-width: 768px) {
   .search {
     padding: 45px 30px 51px 30px;

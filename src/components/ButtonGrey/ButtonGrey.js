@@ -5,7 +5,8 @@ function ButtonGrey(props) {
 
   return (
     <button
-      className="button-grey">
+      className="button-grey"
+      onClick={props.onClick}>
       {props.name}
     </button>
   );

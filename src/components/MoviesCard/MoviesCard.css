@@ -60,6 +60,11 @@
   width: 21px;
   height: 21px;
   background: url(../../images/saved.svg) center no-repeat;
+  cursor: pointer;
+}
+
+.card__saved:hover {
+  opacity: .8;
 }
 
 .card__remove {
@@ -97,6 +102,10 @@
   border-radius: 3px;
   width: 52px;
   height: 18px;
+}
+
+.card__link {
+  cursor: pointer;
 }
 
 @media screen and (max-width: 768px) {
