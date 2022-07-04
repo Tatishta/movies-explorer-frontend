@@ -50,8 +50,10 @@ function Movies(props) {
       const savedMovie = savedMovies?.movies?.find(it => it.movieId === movie.id);
       if (savedMovie) {
         projectApi.removeMovie(savedMovie._id)
-          .then(() => dispatch({ type: 'unSaveMovie', payload: { movieId: movie.id }}))
-        console.error('Вы каким-то образом сохраняете уже сохранённый фильм!');
+          .then(() => dispatch({type: 'unSaveMovie', payload: {movieId: movie.id}}))
+          .catch(err => console.error(err));
+      } else {
+        console.error('Что-то пошло не так');
       }
     } else {
       projectApi.saveMovie(movie)
