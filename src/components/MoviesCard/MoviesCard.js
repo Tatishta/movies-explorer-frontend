@@ -24,7 +24,7 @@ function MoviesCard(props) {
           <img className="card__image" src={movieSrc} alt={`Кадр из фильма ${movie.nameRU}`} />
         </a>
         { window.location.pathname ==="/movies" ? (movie.isSaved ? (
-          <button className="card__button card__saved" />
+          <button className="card__button card__saved" type="button" onClick={handleCardSave} />
         ) : (
           <button
             type="button"

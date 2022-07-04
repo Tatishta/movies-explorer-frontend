@@ -27,11 +27,8 @@ function Register() {
   function handleRegister(name, email, password) {
     auth.register(name, email, password)
       .then(data => {
-        if (data?.error) {
-          setRegisterError(data.error);
-        } else if (data.email) {
-          clearCachedSearchState();
-          window.location.href = '/movies';
+        if (data) {
+          handleLogin(email, password)
         } else {
           setRegisterError(defaultErrorText)
         }
@@ -43,6 +40,17 @@ function Register() {
         setRegisterError(defaultErrorText);
       }
     })
+  }
+
+  function handleLogin(email, password) {
+    auth.authorize(email, password)
+      .then(() => {
+        clearCachedSearchState();
+        window.location.href = '/movies';
+      })
+      .catch((err) => {
+          setRegisterError(defaultErrorText)
+      })
   }
 
   return (

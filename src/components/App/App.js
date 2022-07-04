@@ -34,8 +34,8 @@ function App() {
       setIsInitialized(true);
     })
       .catch((error) => {
-      setIsInitialized(true);
-      console.error(error);
+        setIsInitialized(true);
+        console.error(error);
     });
   }, []);
 

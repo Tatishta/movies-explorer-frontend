@@ -49,6 +49,8 @@ function Movies(props) {
     if (movie.isSaved) {
       const savedMovie = savedMovies?.movies?.find(it => it.movieId === movie.id);
       if (savedMovie) {
+        projectApi.removeMovie(savedMovie._id)
+          .then(() => dispatch({ type: 'unSaveMovie', payload: { movieId: movie.id }}))
         console.error('Вы каким-то образом сохраняете уже сохранённый фильм!');
       }
     } else {
