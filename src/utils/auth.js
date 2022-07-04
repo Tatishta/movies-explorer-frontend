@@ -39,33 +39,6 @@ export const register = (name, email, password) => {
       })
 }
 
-// export const register = (name, email, password) => {
-//   return fetch(`${BASE_URL}/signup`, {
-//     method: 'POST',
-//     headers: {'Accept': 'application/json',
-//          'Content-Type': 'application/json'},
-//     body: JSON.stringify({
-//       email: email,
-//       password: password,
-//       name: name
-//     }),
-//     credentials: 'include',
-//   }).then(res => {
-//     if (!res.ok) {
-//       return Promise.reject(`Ошибка: ${res.status}`);
-//     }
-//     return res.json();
-//   }).then(body => {
-//     if (body.error) {
-//       return {error: body.error};
-//     }
-//     if (body.message) {
-//       return {error: body.message};
-//     }
-//     return {email: body.user.email};
-//   });
-// };
-
 export const authorize = (email, password) => {
   return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
