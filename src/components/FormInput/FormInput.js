@@ -4,16 +4,22 @@ import './FormInput.css';
 
 function FormInput(props) {
 
+  const {label, placeholder, inputType, inputName, onChange, error } = props;
+  const errorClassName = !!error ? 'form-input__error  form-input__error_active' : 'form__input-error';
+
   return (
-    <label className="form-input">{props.label}
+    <label className="form-input">{label}
       <input
-        className="form-input__input"
-        placeholder={props.placeholder}
-        type={props.type}
-        name={props.inputName}
+        className={`form-input__input ${!props.error ? '' : 'form-input__input_error'}`}
+        placeholder={placeholder}
+        type={inputType}
+        name={inputName}
+        onChange={onChange}
+        pattern={props.pattern}
+        autoComplete="off"
         required
       />
-      <span className="form-input__error"></span>
+      <span className={errorClassName}>{error}</span>
     </label>
   );
 }

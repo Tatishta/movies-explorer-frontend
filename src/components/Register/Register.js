@@ -1,14 +1,56 @@
 import React from 'react';
-import { useNavigate } from "react-router-dom";
 import FormInput from '../FormInput/FormInput';
 import Auth from '../Auth/Auth';
+import {useFormAndValidation} from "../../hooks/useFormAndValidation";
+import {clearCachedSearchState} from "../../utils/localStorage";
+import * as auth from "../../utils/auth";
+
 
 function Register() {
-  const navigate = useNavigate();
+
+  const {values, handleChange, errors, isValid, resetForm} = useFormAndValidation();
+  const [registerError, setRegisterError] = React.useState("");
+  const isError = !!registerError;
+  const defaultErrorText = 'Что-то пошло не так! Попробуйте ещё раз.';
 
   const handleSubmit = (e) => {
+    console.log('were here');
     e.preventDefault();
-    navigate("/signin")
+    handleRegister(values.name, values.email, values.password);
+  }
+
+  const handleRemoveErrors = () => {
+    resetForm();
+    setRegisterError("");
+  }
+
+  function handleRegister(name, email, password) {
+    auth.register(name, email, password)
+      .then(data => {
+        if (data) {
+          handleLogin(email, password)
+        } else {
+          setRegisterError(defaultErrorText)
+        }
+      })
+      .catch((err) => {
+      if (err === 'Ошибка: 409') {
+        return setRegisterError('Пользователь с таким email уже есть!')
+      } else {
+        setRegisterError(defaultErrorText);
+      }
+    })
+  }
+
+  function handleLogin(email, password) {
+    auth.authorize(email, password)
+      .then(() => {
+        clearCachedSearchState();
+        window.location.href = '/movies';
+      })
+      .catch((err) => {
+          setRegisterError(defaultErrorText)
+      })
   }
 
   return (
@@ -17,22 +59,38 @@ function Register() {
       comment="Уже зарегистрированы?"
       buttonBlueName="Войти"
       buttonBlueTo="/signin"
-      submit="Зарегистрироваться"
-      onSubmit={handleSubmit}>
+      buttonBlueClick={handleRemoveErrors}
+      submitName="Зарегистрироваться"
+      handleSubmit={handleSubmit}
+      isValid={isValid}
+      values={values}
+      errorText={registerError}
+      isError={isError}>
       <FormInput
         label="Имя"
         placeholder="Виталий"
-        type="text"
-        inputName="name" />
+        inputType="text"
+        inputName="name"
+        value={values.name}
+        error={errors.name}
+        pattern="[a-zA-Zа-яёА-ЯЁ\s\-]*"
+        onChange={handleChange} />
       <FormInput
         label="E-mail"
         placeholder="pochta@yandex.ru"
-        type="email"
-        inputName="email" />
+        inputType="email"
+        inputName="email"
+        pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+        value={values.email}
+        error={errors.email}
+        onChange={handleChange} />
       <FormInput
         label="Пароль"
-        type="text"
-        inputName="password" />
+        inputType="password"
+        inputName="password"
+        value={values.password}
+        error={errors.password}
+        onChange={handleChange} />
     </Auth>
   );
 }

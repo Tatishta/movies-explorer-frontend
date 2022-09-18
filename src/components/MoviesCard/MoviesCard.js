@@ -1,20 +1,30 @@
 import React from 'react';
 import './MoviesCard.css';
+import {getImageUrl} from "../../utils/MoviesUtils";
 
 function MoviesCard(props) {
 
-  const [isSaved, setCardSave] = React.useState(false);
+  const { movie, onRemove, onSave } = props;
 
   function handleCardSave() {
-    setCardSave(true);
+    onSave(movie);
   }
+
+  function handleCardRemove() {
+    onRemove(movie);
+  }
+
+  const movieSrc = movie.image.url ? getImageUrl(movie.image.url) : movie.image
+  const movieDuration = `${Math.floor(movie.duration / 60)} ч ${movie.duration % 60} м`;
 
   return (
     <div className="card">
       <div className="card__overlay">
-        <img className="card__image" src={props.src} alt={`Кадр из фильма ${props.name}`} />
-        { window.location.pathname ==="/movies" ? (isSaved ? (
-          <button className="card__button card__saved" />
+        <a href={movie.trailerLink} className="card__link" target="_blank" title="Смотреть трейлер">
+          <img className="card__image" src={movieSrc} alt={`Кадр из фильма ${movie.nameRU}`} />
+        </a>
+        { window.location.pathname ==="/movies" ? (movie.isSaved ? (
+          <button className="card__button card__saved" type="button" onClick={handleCardSave} />
         ) : (
           <button
             type="button"
@@ -25,10 +35,10 @@ function MoviesCard(props) {
           <button
             type="button"
             className="card__button card__remove"
-            onClick={props.onRemove} />) : (<></>)}
+            onClick={handleCardRemove} />) : (<></>)}
       </div>
-      <p className="card__name">{props.name}</p>
-      <span className="card__time">{props.time}</span>
+      <p className="card__name">{movie.nameRU}</p>
+      <span className="card__time">{movieDuration}</span>
     </div>
   );
 }
